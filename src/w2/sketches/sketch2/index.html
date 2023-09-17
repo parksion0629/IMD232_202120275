@@ -11,30 +11,47 @@
     <link rel="stylesheet" href="../../../../style/style.css" />
     <link rel="stylesheet" href="../../../../plugin/prism/prism.css" />
     <script src="../../../../plugin/prism/prism.js" defer></script>
-    <script src="./script/alertPromptConfirm.js"></script>
+
+    <script>
+      alert('안녕하세요 Inline Script를 시작할게요');
+      let userInputFromPrompt;
+      userInputFromPrompt = prompt('당신의 이름은 ?', '홍길동');
+      let confirmVal = confirm(
+        '당신의 이름이 ' + userInputFromPrompt + '이/가 맞습니까?'
+      );
+      if (confirmVal == true) {
+        alert('환영합니다 ' + userInputFromPrompt + '님.');
+      }
+    </script>
   </head>
   <body>
     <div class="viewport">
+      <header>
+        <section>
+          <div class="container">
+            <h1>박시온 W2 Sketch2</h1>
+          </div>
+        </section>
+      </header>
       <main>
         <section>
           <div class="container"></div>
-          
-          <pre
+        </section>
+        <section>
+          <div class="container">
+            <h3>코드</h3>
+            <h6>index.html</h6>
+            <pre
               class="line-numbers"
               data-src="./index.html"
+              data-line="16-24"
               data-download-link></pre>
           </div>
         </section>
       </main>
       <footer>
         <section>
-          <div class="container">
-            <h6>alertPromptConfirm.js</h6>
-            <pre
-              class="line-numbers"
-              data-src="./script/alertPromptConfirm.js"
-              data-download-link></pre>
-          </div>
+          <div class="container"></div>
         </section>
       </footer>
     </div>

@@ -11,16 +11,39 @@
     <link rel="stylesheet" href="../../../../style/style.css" />
     <link rel="stylesheet" href="../../../../plugin/prism/prism.css" />
     <script src="../../../../plugin/prism/prism.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script>
-    <script src="./script/sketch.js" defer></script>
+    <!-- <script>
+    alert('안녕하세요 Location of the Script를 시작할게요');
+    let uesrName;
+    uesrName = prompt('당신의 이름은 ?', '홍길동');
+    let isUserNameCorrect = confirm(
+      '당신의 이름이 ' + uesrName + '이/가 맞습니까?'
+    );
+    if (isUserNameCorrect == true) {
+      document.getElementById('hereGoesName').textContent =
+        '환영합니다 ' + uesrName + '님.';
+    }
+  </script> -->
   </head>
   <body>
     <div class="viewport">
+      <header>
+        <section>
+          <div class="container">
+            <h1>박시온 W2 sketch4</h1>
+          </div>
+        </section>
+      </header>
       <main>
         <section>
-          <div class="container"></div>
-          <h6>index.html</h6>
-          <pre
+          <div class="container">
+            <h2 id="hereGoesName"></h2>
+          </div>
+        </section>
+        <section>
+          <div class="container">
+            <h3>코드</h3>
+            <h6>index.html</h6>
+            <pre
               class="line-numbers"
               data-src="./index.html"
               data-download-link></pre>
@@ -29,11 +52,21 @@
       </main>
       <footer>
         <section>
-          <div class="container">
-            <h2 id="html-id"></h2>
-          </div>
+          <div class="container"></div>
         </section>
       </footer>
     </div>
+    <script>
+      alert('안녕하세요 Location of the Script를 시작할게요');
+      let uesrName;
+      uesrName = prompt('당신의 이름은 ?', '홍길동');
+      let isUserNameCorrect = confirm(
+        '당신의 이름이 ' + uesrName + '이/가 맞습니까?'
+      );
+      if (isUserNameCorrect == true) {
+        document.getElementById('hereGoesName').textContent =
+          '환영합니다 ' + uesrName + '님.';
+      }
+    </script>
   </body>
 </html>
