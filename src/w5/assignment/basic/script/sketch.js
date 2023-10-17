@@ -1,62 +1,57 @@
-let pos;
-let vel;
-let acc;
+let randR = [];
+let randG = [];
+let randB = [];
+let angle = [];
+let strokes;
+let rad = 25;
 
 function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
-  background('salmon');
-  pos = createVector(width / 2, height / 2);
-  vel = createVector(0, 0);
-  acc = createVector(0, 0);
+  setCanvasContainer('canvas', 1, 1, true);
+
+  for (let a = 0; a < 4; a++) {
+    randR.push(Math.floor(random(255)));
+    randG.push(Math.floor(random(255)));
+    randB.push(Math.floor(random(255)));
+  }
+  strokes = new Array(64);
+
+  for (let a = 0; a < 64; a++) {
+    strokes[a] = new Array(3);
+    strokes[a][0] = randR[Math.floor(random(0, 5))];
+    strokes[a][1] = randG[Math.floor(random(0, 5))];
+    strokes[a][2] = randB[Math.floor(random(0, 5))];
+  }
+
+  for (let a = 0; a < 64; a++) {
+    angle.push((TAU / 360) * (-90 + 15 * a));
+  }
+  background(255);
 }
 
 function draw() {
-  background(220);
-  let randomAcc = p5.Vector.random2D();
-  randomAcc.mult(0.2);
+  background(255);
 
-  // 현재 가속도에 더하기
-  acc.add(randomAcc);
+  for (let a = 0; a < 8; a++)
+    for (let j = 0; j < 8; j++) {
+      strokeWeight(2);
+      noFill();
+      let num = a * 8 + j;
+      stroke(strokes[num][0], strokes[num][1], strokes[num][2]);
 
-  // 현재 속도에 가속도 더하기
-  vel.add(acc);
+      let gap = (width - rad * 16) / 9;
+      let x = gap * (j + 1) + (2 * j + 1) * rad;
+      let y = gap * (a + 1) + (2 * a + 1) * rad;
 
-  // 속도 벡터 크기 제한
-  vel.limit(5); // 속도 상한선
+      ellipse(x, y, rad * 2);
 
-  // 위치 벡터에 속도 벡터 더하기
-  pos.add(vel);
+      let pointX = cos(angle[num]) * rad + x;
+      let pointY = sin(angle[num]) * rad + y;
+      line(x, y, pointX, pointY);
 
-  // 화면 밖으로 나가지 않도록 위치 조정
-  if (pos.x > width) {
-    pos.x = 0;
-  } else if (pos.x < 0) {
-    pos.x = width;
-  }
-  if (pos.y > height) {
-    pos.y = 0;
-  } else if (pos.y < 0) {
-    pos.y = height;
-  }
+      noStroke();
+      fill(0);
+      ellipse(pointX, pointY, 10);
 
-  // 원 그리기
-  noFill();
-  stroke(0);
-  ellipse(pos.x, pos.y, 50, 50);
-
-  // 중심에서 마우스로 향하는 벡터 그리기
-  let centerToMouse = createVector(mouseX - pos.x, mouseY - pos.y);
-  centerToMouse.mult(10); // 벡터 확대
-  stroke(255, 0, 0);
-  line(pos.x, pos.y, pos.x + centerToMouse.x, pos.y + centerToMouse.y);
-
-  // 가속도 벡터 그리기
-  acc.mult(100); // 벡터 확대
-  stroke(0, 0, 255);
-  line(pos.x, pos.y, pos.x + acc.x, pos.y + acc.y);
-
-  // 속도 벡터 그리기
-  vel.mult(10); // 벡터 확대
-  stroke(0, 255, 0);
-  line(pos.x, pos.y, pos.x + vel.x, pos.y + vel.y);
+      angle[num] += (TAU / 360) * 1;
+    }
 }
