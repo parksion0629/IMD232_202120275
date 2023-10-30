@@ -25,7 +25,7 @@ class Ball {
 
   display() {
     fill(this.color);
-    noStroke(); 
+    noStroke();
     ellipse(this.pos.x, this.pos.y, 2 * this.rad);
   }
 
