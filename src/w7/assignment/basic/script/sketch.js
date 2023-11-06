@@ -1,62 +1,35 @@
-let pos;
-let vel;
-let acc;
+let traffic;
+//traffic 이라는 변수를 선언
+let infiniteOffset = 80;
+//infiniteOffset 이라는 변수를 선언하고, 값은 80이다.
 
 function setup() {
+  //스케치를 초기화하고, 시작할 때 필요한 설정을 수행
   setCanvasContainer('canvas', 3, 2, true);
-  background('salmon');
-  pos = createVector(width / 2, height / 2);
-  vel = createVector(0, 0);
-  acc = createVector(0, 0);
+  // 캔버스 불러오기, 캔버스의 비율을 3:2로 세팅, 창의 크기에 따라 캔버스 크기를 반응할 것이라는 표시
+  colorMode(HSL, 360, 100, 100, 100);
+  //컬러모드 설정: 각 구성 요소의 최대값 / 색상:360 / 채도:100 / 명도:100
+  background('white');
+  //캠버스 배경색 = 하얀색
+  traffic = new Traffic();
+  //Traffic라는 클래스의 인스턴스를 생성하고 traffic라는 변수에 집어 넣음
+  for (let n = 0; n < 10; n++) {
+    //반복 작업을 수행할 때 사용하는 for 구문이다. 'n' 변수를 0으로 초기화하고, n이 10보다 작은 동안 반복 실행한다. 1 반복마다 'n'을 1씩 증가한다.
+    traffic.addVehicle(random(width), random(height));
+    //랜덤으로 위치를 지정하는 코드.
+  }
 }
 
 function draw() {
-  background(220);
-  let randomAcc = p5.Vector.random2D();
-  randomAcc.mult(0.2);
+  //화면에 그림을 그리고 반응하는 코드
+  background('white');
+  //배경색을 흰색으로 설정
+  traffic.run();
+  //traffic이라는 클래스를 실행
+}
 
-  // 현재 가속도에 더하기
-  acc.add(randomAcc);
-
-  // 현재 속도에 가속도 더하기
-  vel.add(acc);
-
-  // 속도 벡터 크기 제한
-  vel.limit(5); // 속도 상한선
-
-  // 위치 벡터에 속도 벡터 더하기
-  pos.add(vel);
-
-  // 화면 밖으로 나가지 않도록 위치 조정
-  if (pos.x > width) {
-    pos.x = 0;
-  } else if (pos.x < 0) {
-    pos.x = width;
-  }
-  if (pos.y > height) {
-    pos.y = 0;
-  } else if (pos.y < 0) {
-    pos.y = height;
-  }
-
-  // 원 그리기
-  noFill();
-  stroke(0);
-  ellipse(pos.x, pos.y, 50, 50);
-
-  // 중심에서 마우스로 향하는 벡터 그리기
-  let centerToMouse = createVector(mouseX - pos.x, mouseY - pos.y);
-  centerToMouse.mult(10); // 벡터 확대
-  stroke(255, 0, 0);
-  line(pos.x, pos.y, pos.x + centerToMouse.x, pos.y + centerToMouse.y);
-
-  // 가속도 벡터 그리기
-  acc.mult(100); // 벡터 확대
-  stroke(0, 0, 255);
-  line(pos.x, pos.y, pos.x + acc.x, pos.y + acc.y);
-
-  // 속도 벡터 그리기
-  vel.mult(10); // 벡터 확대
-  stroke(0, 255, 0);
-  line(pos.x, pos.y, pos.x + vel.x, pos.y + vel.y);
+function mouseDragged() {
+  //마우스를 드래그하면 반응하는 함수
+  traffic.addVehicle(mouseX, mouseY);
+  //traffic이라는 클래스의 addvehicle를 넣어서 작동함. addvehicle의 좌표는 마우스 커서의 x,y 다.
 }
